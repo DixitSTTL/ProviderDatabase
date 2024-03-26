@@ -43,7 +43,8 @@ class MyProvider : ContentProvider() {
         const val CREATE_DB_TABLE =
             (" CREATE TABLE " + TABLE_NAME
                     + " (id INTEGER PRIMARY KEY AUTOINCREMENT, "
-                    + " name TEXT NOT NULL);")
+                    + " name TEXT NOT NULL," +
+                    " department TEXT NOT NULL);")
 
         init {
 
