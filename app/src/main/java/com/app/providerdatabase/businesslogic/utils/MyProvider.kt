@@ -153,8 +153,7 @@ class MyProvider : ContentProvider() {
     private var db: SQLiteDatabase? = null
 
     // creating a database
-    class DatabaseHelper  // defining a constructor
-    internal constructor(context: Context?) : SQLiteOpenHelper(
+    class DatabaseHelper  internal constructor(context: Context?) : SQLiteOpenHelper(
         context,
         DATABASE_NAME,
         null,
@@ -171,8 +170,6 @@ class MyProvider : ContentProvider() {
             newVersion: Int
         ) {
 
-            // sql query to drop a table
-            // having similar name
             db.execSQL("DROP TABLE IF EXISTS $TABLE_NAME")
             onCreate(db)
         }

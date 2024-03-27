@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.app.providerdatabase.businesslogic.viewmodel.ViewModelMain
 import com.app.providerdatabase.databinding.ActivityMainBinding
 import com.app.providerdatabase.view.adapter.AdapterUser
@@ -28,9 +29,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun observer() {
-        mViewModel.userList.observe(this,{
+        mViewModel.userList.observe(this, {
             mAdapter.setData(it)
 
+        })
+
+        mViewModel.observeRefreshing.observe(this, {
+
+            mBinding.swipeRefresh.isRefreshing = it
         })
 
 
@@ -41,8 +47,18 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun _init() {
-       mBinding.recUsers.adapter= mAdapter
-       mBinding.recUsers.layoutManager=LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false)
+        mBinding.apply {
+            recUsers.adapter = mAdapter
+            recUsers.layoutManager =
+                LinearLayoutManager(this@MainActivity, LinearLayoutManager.VERTICAL, false)
 
+            swipeRefresh.setOnRefreshListener(object : SwipeRefreshLayout.OnRefreshListener {
+                override fun onRefresh() {
+                    mViewModel.observeRefreshing.postValue(true)
+                    mViewModel.fetchUsers()
+                }
+
+            })
+        }
     }
 }

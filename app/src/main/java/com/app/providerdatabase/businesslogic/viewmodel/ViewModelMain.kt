@@ -16,6 +16,7 @@ import javax.inject.Inject
 class ViewModelMain @Inject constructor() : BaseViewModel() {
 
     var userList = MutableLiveData<ArrayList<UserModel>>()
+    var observeRefreshing = MutableLiveData<Boolean>()
 
     @SuppressLint("Range")
     fun fetchUsers() {
@@ -55,6 +56,7 @@ class ViewModelMain @Inject constructor() : BaseViewModel() {
                 }
                 it.close()
             }
+            observeRefreshing.postValue(false)
         }
 
     }

@@ -30,8 +30,8 @@
         <provider
             android:name=".businesslogic.utils.MyProvider"
             android:authorities="com.app.providerdatabase.provider"
-            android:exported="true"
-            android:enabled="true"/>
+            android:enabled="true"
+            android:exported="true" />
     </application>
 
 </manifest>
