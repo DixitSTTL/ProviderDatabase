@@ -2,6 +2,8 @@ package com.app.providerdatabase.businesslogic.viewmodel
 
 import android.annotation.SuppressLint
 import android.net.Uri
+import androidx.databinding.ObservableBoolean
+import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
 import com.app.providerdatabase.pojo.UserModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,6 +19,7 @@ class ViewModelMain @Inject constructor() : BaseViewModel() {
 
     var userList = MutableLiveData<ArrayList<UserModel>>()
     var observeRefreshing = MutableLiveData<Boolean>()
+    var isVisible = ObservableField(false)
 
     @SuppressLint("Range")
     fun fetchUsers() {
@@ -48,11 +51,11 @@ class ViewModelMain @Inject constructor() : BaseViewModel() {
                         )
 
                     }
-                    withContext(Dispatchers.Main) {
 
-                        userList.value = list
-                    }
 
+                }
+                withContext(Dispatchers.Main) {
+                    userList.value = list
                 }
                 it.close()
             }

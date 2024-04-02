@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <permission android:name="com.demo.user.provider.PERMISSION_READ_DATA" />
+    <permission android:name="com.demo.user.provider.PERMISSION_WRITE_DATA" />
 
     <queries>
         <package android:name="com.app.providerdatabase" />
@@ -30,6 +32,8 @@
         <provider
             android:name=".businesslogic.utils.MyProvider"
             android:authorities="com.app.providerdatabase.provider"
+            android:readPermission="com.demo.user.provider.PERMISSION_READ_DATA"
+            android:writePermission="com.demo.user.provider.PERMISSION_WRITE_DATA"
             android:enabled="true"
             android:exported="true" />
     </application>

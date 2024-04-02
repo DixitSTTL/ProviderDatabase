@@ -22,6 +22,7 @@ class MainActivity : AppCompatActivity() {
 
         mBinding = DataBindingUtil.setContentView(this@MainActivity, R.layout.activity_main)
         mViewModel = ViewModelProvider(this@MainActivity).get(ViewModelMain::class.java)
+        mBinding.viewModel = mViewModel
         _init()
         observer()
         getContent()
@@ -29,15 +30,22 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun observer() {
-        mViewModel.userList.observe(this, {
+        mViewModel.userList.observe(this) {
             mAdapter.setData(it)
+            if (it.size > 0) {
+                mViewModel.isVisible.set(true)
+            }
+            else{
+                mViewModel.isVisible.set(false)
 
-        })
+            }
 
-        mViewModel.observeRefreshing.observe(this, {
+        }
+
+        mViewModel.observeRefreshing.observe(this) {
 
             mBinding.swipeRefresh.isRefreshing = it
-        })
+        }
 
 
     }
